@@ -28,4 +28,4 @@ steps:
   - --project=container-developer
   - --region=us-central1
   - --delivery-pipeline=my-gke-demo-app-1
-  - --images=helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+  - --images=us-central1-docker.pkg.dev/container-developer/repo/helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA

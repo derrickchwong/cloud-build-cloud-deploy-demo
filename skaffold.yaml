@@ -1,6 +1,23 @@
 apiVersion: skaffold/v2beta16
 kind: Config
+build:
+  artifacts:
+  - image: us-central1-docker.pkg.dev/container-developer/repo/helloworld
+    jib:
+      project: com.example:demo
+      type: maven
+      args:
+      - --no-transfer-progress
+      - -Psync
+      - -DskipTests
+      fromImage: gcr.io/distroless/java:debug
+    sync:
+      auto: true
 deploy:
   kubectl:
     manifests:
     - k8s/*
+portForward:
+- resourceType: service
+  resourceName: helloworld
+  port: 80

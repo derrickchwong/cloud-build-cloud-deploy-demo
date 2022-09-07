@@ -17,7 +17,7 @@ spec:
       containers:
       - name: satelite
         imagePullPolicy: Always
-        image: helloworld
+        image: us-central1-docker.pkg.dev/container-developer/repo/helloworld
         ports:
         - containerPort: 8080
         resources:
@@ -25,14 +25,14 @@ spec:
             memory: "1Gi"
             cpu: "500m"
 
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: helloworld
-#spec:
-#  selector:
-#    app: helloworld
-#  ports:
-#  - port: 80
-#    targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld
+spec:
+  selector:
+    app: helloworld
+  ports:
+  - port: 80
+    targetPort: 8080
