@@ -2,4 +2,10 @@ steps:
 - name: 'gcr.io/k8s-skaffold/pack'
   entrypoint: 'pack'
   args: ['build', '--builder=gcr.io/buildpacks/builder', '--publish', 'us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA']
-  
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args:
+  - run
+  - --filename=k8s/helloworld.yaml
+  - --image=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+  - --location=us-central1
+  - --cluster=dev
