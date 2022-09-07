@@ -28,4 +28,5 @@ steps:
   - --project=container-developer
   - --region=us-central1
   - --delivery-pipeline=my-gke-demo-app-1
-  - --images=helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+  - --skaffold-file=skaffold.yaml
+#  - --images=helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
