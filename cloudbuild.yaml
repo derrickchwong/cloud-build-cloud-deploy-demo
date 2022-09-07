@@ -2,10 +2,14 @@ steps:
 - name: 'gcr.io/k8s-skaffold/pack'
   entrypoint: 'pack'
   args: ['build', '--builder=gcr.io/buildpacks/builder', '--publish', 'us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA']
-- name: "gcr.io/cloud-builders/gke-deploy"
-  args:
-  - run
-  - --filename=k8s/helloworld.yml
-  - --image=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
-  - --location=us-central1
-  - --cluster=dev
+#- name: "gcr.io/cloud-builders/gke-deploy"
+#  args:
+#  - run
+#  - --filename=k8s/helloworld.yml
+#  - --image=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+#  - --location=us-central1
+#  - --cluster=dev
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args: ['deploy', 'releases', 'create', 'test-release-$COMMIT_SHA', '--project=container-developer', '--region=us-central1', '--delivery-pipeline=my-gke-demo-app-1', '--images=us-central1-docker.pkg.dev/container-developer/repo/helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA']
