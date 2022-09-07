@@ -19,15 +19,15 @@ steps:
 #  - --cluster=dev
 
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'gcloud'
+  entrypoint: 'bash'
   args:
-  - deploy
-  - releases
-  - create
-  - test-release-$SHORT_SHA
-  - --project=container-developer
-  - --region=us-central1
-  - --delivery-pipeline=my-gke-demo-app-1
-  - --images=helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+  - -c
+  - |
+    gcloud deploy releases create \
+    test-release-$SHORT_SHA \
+    --project=container-developer \
+    --region=us-central1 \
+    --delivery-pipeline=my-gke-demo-app-1 \
+    --images=helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld@$(gcloud builds describe $BUILD_ID --format 'value(results.images[0].digest)')
 
 images: [us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA]
