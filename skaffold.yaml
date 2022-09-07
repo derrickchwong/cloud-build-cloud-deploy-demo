@@ -1,10 +1,5 @@
 apiVersion: skaffold/v2beta16
 kind: Config
-build:
-  artifacts:
-  - image: us-central1-docker.pkg.dev/container-developer/repo/helloworld
-    buildpacks:
-      builder: "gcr.io/buildpacks/builder"
 deploy:
   kubectl:
     manifests:
