@@ -6,6 +6,6 @@ steps:
   args:
   - run
   - --filename=k8s/helloworld.yml
-  - --image=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+  - --image=helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
   - --location=us-central1
   - --cluster=dev
