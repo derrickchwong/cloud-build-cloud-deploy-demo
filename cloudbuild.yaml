@@ -1,7 +1,11 @@
 steps:
 - name: 'gcr.io/k8s-skaffold/pack'
-  entrypoint: 'pack'
-  args: ['build', '--builder=gcr.io/buildpacks/builder', '--publish', 'us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA']
+  entrypoint: bash
+  args:
+  - -c
+  - |
+    pack build --builder=gcr.io/buildpacks/builder --publish --quiet us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA > /workspace/image-with-digest.txt
+
 #- name: "gcr.io/cloud-builders/gke-deploy"
 #  args:
 #  - run
@@ -11,13 +15,8 @@ steps:
 #  - --cluster=dev
 
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'gcloud'
+  entrypoint: bash
   args:
-  - deploy
-  - releases
-  - create
-  - test-release-$SHORT_SHA
-  - --project=container-developer
-  - --region=us-central1
-  - --delivery-pipeline=my-gke-demo-app-1
-  - --images=us-central1-docker.pkg.dev/container-developer/repo/helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+  - -c
+  - |
+    gcloud deploy releases create test-release-$SHORT_SHA --project=container-developer --region=us-central1 --delivery-pipeline=my-gke-demo-app-1 --images=helloworld:$(cat /workspace/image-with-digest.txt)

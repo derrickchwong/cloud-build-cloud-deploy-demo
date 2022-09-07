@@ -17,7 +17,7 @@ spec:
       containers:
       - name: satelite
         imagePullPolicy: Always
-        image: us-central1-docker.pkg.dev/container-developer/repo/helloworld
+        image: helloworld
         ports:
         - containerPort: 8080
         resources:
