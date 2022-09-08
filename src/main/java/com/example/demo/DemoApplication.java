@@ -14,9 +14,9 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@GetMapping("/hi/{name}")
+	@GetMapping("/hello/{name}")
 	public String hi(@PathVariable String name){
-    return "Hello " + name.toUpperCase() + "! How are you?";
+    return "Hello " + name.toUpperCase() + "! How are you? Im fine....";
   }
 
 }
