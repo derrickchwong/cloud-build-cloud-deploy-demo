@@ -2,13 +2,21 @@ steps:
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['test']
 
-- name: 'gcr.io/k8s-skaffold/pack'
-  entrypoint: 'pack'
+#- name: 'gcr.io/k8s-skaffold/pack'
+#  entrypoint: 'pack'
+#  args:
+#  - build
+#  - --builder=gcr.io/buildpacks/builder
+#  - --publish
+#  - us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
   args:
-  - build
-  - --builder=gcr.io/buildpacks/builder
-  - --publish
-  - us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+  - builds
+  - submit
+  - .
+  - --pack=image=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
 
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
