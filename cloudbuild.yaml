@@ -10,14 +10,6 @@ steps:
   - --publish
   - us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
 
-#- name: "gcr.io/cloud-builders/gke-deploy"
-#  args:
-#  - run
-#  - --filename=k8s/helloworld.yml
-#  - --image=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
-#  - --location=us-central1
-#  - --cluster=dev
-
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
