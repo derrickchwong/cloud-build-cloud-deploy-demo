@@ -1,7 +1,8 @@
 steps:
+# Unit Test
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['test']
-
+# Build Container
 - name: 'gcr.io/k8s-skaffold/pack'
   entrypoint: 'pack'
   args:
@@ -9,7 +10,7 @@ steps:
   - --builder=gcr.io/buildpacks/builder
   - --publish
   - us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
-
+# Create Release
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'bash'
   args:
