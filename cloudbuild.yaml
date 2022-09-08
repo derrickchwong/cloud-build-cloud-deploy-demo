@@ -1,6 +1,6 @@
 steps:
-#- name: 'gcr.io/cloud-builders/mvn'
-#  args: ['test']
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['test']
 
 - name: 'gcr.io/k8s-skaffold/pack'
   entrypoint: 'pack'
@@ -18,25 +18,25 @@ steps:
 #  - .
 #  - --pack=image=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
 
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bash'
-  args:
-  - -c
-  - |
-    gcloud deploy releases create test-release-$SHORT_SHA \ 
-    --project=container-developer \
-    --region=us-central1 \
-    --delivery-pipeline=my-gke-demo-app-1 \
-    --images=us-central1-docker.pkg.dev/container-developer/repo/helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld@$(gcloud artifacts docker images describe us-central1-docker.pkg.dev/container-developer/repo/helloworld:"$COMMIT_SHA" --format 'value(image_summary.digest)')
-
 #- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#  entrypoint: 'gcloud'
+#  entrypoint: 'bash'
 #  args:
-#  - deploy
-#  - releases
-#  - create
-#  - test-release-$SHORT_SHA
-#  - --project=container-developer
-#  - --region=us-central1
-#  - --delivery-pipeline=my-gke-demo-app-1
-#  - --images=us-central1-docker.pkg.dev/container-developer/repo/helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+#  - -c
+#  - |
+#    gcloud deploy releases create test-release-$SHORT_SHA \
+#    --project=container-developer \
+#    --region=us-central1 \
+#    --delivery-pipeline=my-gke-demo-app-1 \
+#    --images=us-central1-docker.pkg.dev/container-developer/repo/helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld@$(gcloud artifacts docker images describe us-central1-docker.pkg.dev/container-developer/repo/helloworld:"$COMMIT_SHA" --format "value(image_summary.digest)")
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args:
+  - deploy
+  - releases
+  - create
+  - test-release-$SHORT_SHA
+  - --project=container-developer
+  - --region=us-central1
+  - --delivery-pipeline=my-gke-demo-app-1
+  - --images=us-central1-docker.pkg.dev/container-developer/repo/helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
