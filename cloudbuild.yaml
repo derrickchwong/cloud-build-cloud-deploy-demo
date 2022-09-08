@@ -2,7 +2,7 @@ steps:
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['test']
 
-- name: 'buildpacksio/pack'
+- name: 'gcr.io/k8s-skaffold/pack'
   entrypoint: 'pack'
   args:
   - build
