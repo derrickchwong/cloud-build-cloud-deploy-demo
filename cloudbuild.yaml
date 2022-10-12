@@ -13,9 +13,9 @@ steps:
   - --publish
   - us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
 
-# Integration Test
+# TODO Integration Test
 
-# Security scan
+# TODO Security scan
 
 # Create Release
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
