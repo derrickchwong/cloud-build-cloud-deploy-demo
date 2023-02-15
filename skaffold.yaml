@@ -15,8 +15,8 @@ build:
     #   fromImage: gcr.io/distroless/java:debug
     sync:
       auto: true
-manifests:
-  rawYaml:
+kubectl:
+  manifests:
     - k8s/helloworld.yml
 
 # deploy:
