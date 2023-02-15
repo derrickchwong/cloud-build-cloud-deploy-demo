@@ -16,7 +16,7 @@ public class DemoApplication {
 
 	@GetMapping("/hello/{name}")
 	public String hi(@PathVariable String name){
-    return "Hello " + name.toUpperCase() + "! How are you? Im fine......";
+    return "Hello " + name.toUpperCase() + "! How are you? Im fine......thanks";
   }
 
 }
