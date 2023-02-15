@@ -5,26 +5,44 @@ steps:
   args: ['test']
 
 # Build Container
-- name: 'gcr.io/k8s-skaffold/pack'
-  entrypoint: 'pack'
+# - name: 'gcr.io/k8s-skaffold/pack'
+#   entrypoint: 'pack'
+#   args:
+#   - build
+#   - --builder=gcr.io/buildpacks/builder
+#   - --publish
+#   - us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+
+- name: 'gcr.io/k8s-skaffold/skaffold'
+  entrypoint: 'skaffold'
   args:
   - build
-  - --builder=gcr.io/buildpacks/builder
-  - --publish
-  - us-central1-docker.pkg.dev/container-developer/repo/helloworld:$COMMIT_SHA
+  - --file-output=/workspace/artifacts.json
 
 # TODO Integration Test
 
 # TODO Security scan
 
 # Create Release
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: 'bash'
+#   args:
+#   - -c
+#   - |
+#     gcloud deploy releases create test-release-$SHORT_SHA \
+#     --project=container-developer \
+#     --region=us-central1 \
+#     --delivery-pipeline=my-gke-demo-app-1 \
+#     --images=us-central1-docker.pkg.dev/container-developer/repo/helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld@$(gcloud artifacts docker images describe us-central1-docker.pkg.dev/container-developer/repo/helloworld:"$COMMIT_SHA" --format "value(image_summary.digest)")
+
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'bash'
   args:
   - -c
   - |
-    gcloud deploy releases create test-release-$SHORT_SHA \
-    --project=container-developer \
+    gcloud deploy releases create helloworld-release-$SHORT_SHA \
+    --project=m2c-demo \
     --region=us-central1 \
     --delivery-pipeline=my-gke-demo-app-1 \
-    --images=us-central1-docker.pkg.dev/container-developer/repo/helloworld=us-central1-docker.pkg.dev/container-developer/repo/helloworld@$(gcloud artifacts docker images describe us-central1-docker.pkg.dev/container-developer/repo/helloworld:"$COMMIT_SHA" --format "value(image_summary.digest)")
+    --build-artifacts=/workspace/artifacts.json
+    

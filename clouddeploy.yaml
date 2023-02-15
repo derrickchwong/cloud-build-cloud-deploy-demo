@@ -7,8 +7,8 @@ serialPipeline:
   stages:
   - targetId: staging
     profiles: []
-  - targetId: prod
-    profiles: []
+  # - targetId: prod
+  #   profiles: []
 ---
 
 apiVersion: deploy.cloud.google.com/v1
@@ -17,14 +17,14 @@ metadata:
   name: staging
 description: staging cluster
 gke:
-  cluster: projects/container-developer/locations/us-central1/clusters/staging
+  cluster: projects/m2c-demo/locations/us-central1/clusters/autopilot-cluster-1
 
----
+# ---
 
-apiVersion: deploy.cloud.google.com/v1
-kind: Target
-metadata:
-  name: prod
-description: prod cluster
-gke:
-  cluster: projects/container-developer/locations/us-central1/clusters/prod
+# apiVersion: deploy.cloud.google.com/v1
+# kind: Target
+# metadata:
+#   name: prod
+# description: prod cluster
+# gke:
+#   cluster: projects/container-developer/locations/us-central1/clusters/prod
