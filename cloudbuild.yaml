@@ -59,6 +59,5 @@ steps:
     --project=m2c-demo \
     --region=us-central1 \
     --delivery-pipeline=my-gke-demo-app-1 \
-    --skaffold-version=2.0.5
     --build-artifacts=/workspace/artifacts.json
     
