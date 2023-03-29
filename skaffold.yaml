@@ -4,7 +4,9 @@ build:
   artifacts:
   - image: us-central1-docker.pkg.dev/m2c-demo/container/helloworld
     buildpacks:
-      builder: "gcr.io/buildpacks/builder:v1"
+      builder: "gcr.io/buildpacks/builder"
+      env:
+      - GOOGLE_RUNTIME_VERSION=17
     # jib:
     #   project: com.example:demo
     #   type: maven

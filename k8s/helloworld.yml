@@ -55,6 +55,6 @@ spec:
     matchLabels:
       app: helloworld
   endpoints:
-  - port: web
+  - port: 8080
     path: /actuator/prometheus
     interval: 30s

@@ -2,6 +2,9 @@
 spring:
   application:
     name: helloworld
+  sleuth:
+    sampler:
+      probability: 1.0
 management:
   endpoints:
     web:
